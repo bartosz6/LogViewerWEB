@@ -1,0 +1,26 @@
+.validation-error {
+    color: red;
+    margin-left: 42px;
+    font-size: 11px;
+}
+
+input.invalid {
+    margin-bottom: 2px;
+}
+
+.input-field {
+    label {
+        left: 0;
+    }
+
+    .prefix {
+        margin: 6px 0;
+    }
+}
+
+.wrapped {
+    max-width: 150px;
+    text-overflow:ellipsis; 
+    overflow: hidden;
+    white-space: nowrap;
+}
