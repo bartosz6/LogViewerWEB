@@ -16,8 +16,8 @@ export class LogService implements ILogService {
     getLogs(query: any): Observable<LogListItem[]> {
         let params: URLSearchParams = new URLSearchParams();
         
-        params.set('start', query.startIndex.toString());
-        params.set('limit', query.length.toString());
+        params.set('start', query.start.toString());
+        params.set('limit', query.limit.toString());
 
         let result = this.http.get(this.appConsts.API_URL + "logs", {
             search: params

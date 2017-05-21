@@ -7,20 +7,24 @@ import { UUID } from 'angular2-uuid';
     selector: 'log-list',
     templateUrl: 'loglist.component.html'
 })
-export class LogListComponent {
+export class LogListComponent implements OnInit {
     @Input() logs: LogListItem[];
     @Input() hasMoreData: boolean;
     @Input() page: number;
     @Input() pageSize: number;
+
     @Output() changePageEvent = new EventEmitter();
+    @Output() changeSortColumnEvent = new EventEmitter();
 
     get showNext(): boolean { return this.hasMoreData; }
-    get showPrev(): boolean { return this.page > 1; }
+    get showPrev(): boolean { return this.page > 0; }
+
+    get noContent(): boolean { return this.logs.length === 0; }
 
     nextPage() {
         if (this.showNext)
             this.changePageEvent.emit({
-                startIndex: this.pageSize*this.page,
+                page: this.page+1,
                 length: this.pageSize
             });
     }
@@ -28,9 +32,18 @@ export class LogListComponent {
     prevPage() {
         if (this.showPrev)
             this.changePageEvent.emit({
-                startIndex: this.pageSize*(this.page-2),
+                page: this.page-1,
                 length: this.pageSize
             });
+    }
+
+    ngOnInit(): void {
+    }
+
+    sort(columnName) {
+        this.changeSortColumnEvent.emit({
+            columnName
+        });
     }
 
     constructor() {

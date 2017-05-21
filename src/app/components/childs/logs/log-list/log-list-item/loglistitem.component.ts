@@ -9,11 +9,6 @@ import { LogListItem } from './loglistitem.model';
 })
 export class LogListItemComponent {
     @Input() log: LogListItem;
-    // @Output() detailsEvent = new EventEmitter();
-
-    // details() {
-    //     this.detailsEvent.emit(this.Log.id);
-    // }
-
+    
     constructor() { }
 }

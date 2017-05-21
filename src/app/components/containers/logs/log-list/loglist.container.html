@@ -2,6 +2,7 @@
     [logs]="logs | async" 
     [hasMoreData]="hasMoreData | async"
     (changePageEvent)="changePage($event)"
+    (changeSortColumnEvent)="changeSortColumn($event)"
     [page]="pageNumber | async"
     [pageSize]="pageSize | async"
 ></log-list>

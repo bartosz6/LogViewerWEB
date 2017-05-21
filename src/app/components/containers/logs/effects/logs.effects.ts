@@ -17,8 +17,15 @@ export class LogsEffects {
     ) { }
 
     @Effect() loadPosts$ = this.actions$.ofType(logsListActions.ActionTypes.CHANGE_PAGE)
-        .map(action => action.payload)
-        .switchMap(payload => this.logsService.getLogs(payload))
+        .map(action => {
+            let payload : logsListActions.ChangePageModel = action.payload;
+            let args = {
+                start: payload.page*payload.length,
+                limit: payload.length
+            }
+            return args;
+        })
+        .switchMap(args => this.logsService.getLogs(args))
         .map(result => new logsListActions.ChangePageOk({
             logs: result.data,
             hasMoreData: result.hasMoreData

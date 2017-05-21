@@ -15,8 +15,8 @@ export interface LogListState {
 
 const initialState: LogListState = {
     logs: [],
-    page: 1,
-    pageSize: 5,
+    page: 0,
+    pageSize: 10,
     hasMoreData: false
 }
 
@@ -25,9 +25,8 @@ export function logListReducer(state = initialState, action: Action): LogListSta
         case actions.ActionTypes.CHANGE_PAGE:
             {
                 const payload: actions.ChangePageModel = action.payload;
-                console.log(payload);
                 return Object.assign({}, state, {
-                    page: payload.startIndex / state.pageSize + 1
+                    page: payload.page
                 });
             }
         case actions.ActionTypes.CHANGE_PAGE_OK:

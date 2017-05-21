@@ -32,7 +32,7 @@ import { LogService } from './infrastructure/services/LogService';
 import { ILogService } from './infrastructure/services/ILogService';
 
 const appRoutes: Routes = [
-  { path: 'logs/:tag', component: LogListContainer },
+  { path: 'logs/:page', component: LogListContainer },
   { path: '**', redirectTo: 'logs/', pathMatch: 'full' }
 ];
 

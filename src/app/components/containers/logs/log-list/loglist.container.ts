@@ -19,33 +19,40 @@ import { go, replace, search, show, back, forward } from '@ngrx/router-store';
     selector: 'log-list-container',
     templateUrl: 'loglist.container.html'
 })
-export class LogListContainer implements OnInit, OnDestroy {
+export class LogListContainer implements OnInit {
     logs: Observable<LogListItem[]>;
     hasMoreData: Observable<boolean>;
     pageNumber: Observable<number>;
     pageSize: Observable<number>;
+    sortColumn: Observable<string>;
 
     changePage(request) {
-        this._store.dispatch(
-            new logListActions.ChangePage(request)
-        );
+        this._store.dispatch(go(['logs/'+request.page])); //relativeTo bug in this version - problem with trailing slash
     }
 
-    ngOnInit() {
-        this._store.dispatch(
-            new logListActions.ChangePage({
-                startIndex: 0,
-                length: 5
-            })
-        );
-    }
-
-    ngOnDestroy() {
+    changeSortColumn(request) {
+        
         
     }
 
+    ngOnInit() {
+        Observable.combineLatest(
+            this._route.params.map(p => p['page']),
+            this.pageSize)
+            .subscribe(combined => {
+                let page = +combined[0];
+                let pageSize = combined[1];
+
+                this._store.dispatch(
+                    new logListActions.ChangePage({
+                        page: page,
+                        length: pageSize,
+                    }));
+            });
+    }
+
     constructor(
-        private _store: Store<AppState>, 
+        private _store: Store<AppState>,
         private _route: ActivatedRoute) {
         this.logs = _store.select(a => a.logList).let(logListReducer.getLogs);
         this.hasMoreData = _store.select(a => a.logList).let(logListReducer.getHasMoreData);

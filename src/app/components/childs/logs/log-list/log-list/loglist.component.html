@@ -1,13 +1,16 @@
 <div class="row">
-    <div class="col m12">
+    <div *ngIf="noContent" class="col m12">
+        <h4>Nothing to see here :(</h4>
+    </div>
+    <div class="col m12" *ngIf="!noContent">
         <table class="responsive-table">
             <thead>
                 <tr>
-                    <th>Date</th>
+                    <th (click)="sort('date')">Date</th>
                     <th>Client IP</th>
                     <th>Method</th>
-                    <th>Code</th>
-                    <th>Size</th>
+                    <th (click)="sort('responseCode')">Code</th>
+                    <th (click)="sort('responseSize')">Size</th>
                     <th>Protocol</th>
                     <th>Target</th>
                     <th>Refferal</th>
@@ -19,13 +22,7 @@
             </tbody>
         </table>
     </div>
-
-    <div *ngIf="logs.length === 0">
-        <h4>Nothing to see here :(</h4>
-    </div>
-</div>
-<div class="row">
-    <div class="col m12 center-align">
+    <div class="col m12 center-align" *ngIf="!noContent">
         <button (click)="prevPage()" class="btn-floating btn-large red" *ngIf="showPrev"><</button>
         <button (click)="nextPage()" class="btn-floating btn-large red" *ngIf="showNext">></button>
     </div>

@@ -9,7 +9,7 @@ export const ActionTypes = {
 }
 
 export interface ChangePageModel {
-    startIndex: number;
+    page: number;
     length: number; 
 }
 
@@ -19,6 +19,19 @@ export interface ChangePageOkModel {
 }
 
 export interface ChangePageErrorModel {
+    message: any;
+}
+
+export interface ChangeSortColumnModel {
+    columnName: string;
+}
+
+export interface ChangeSortColumnOkModel {
+    hasMoreData: boolean;
+    logs: Array<LogListItem>;
+}
+
+export interface ChangeSortColumnErrorModel {
     message: any;
 }
 
